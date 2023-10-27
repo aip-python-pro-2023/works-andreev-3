@@ -1,0 +1,9 @@
+{
+  "name": "Nikolay",
+  "age": 25,
+  "marks": [5, 4, 5, "5E", 5.0],
+  "contacts": {
+    "email": "nvandreev@itmo.ru",
+    "phone": "+7 (931) 973-00-00"
+  }
+}
