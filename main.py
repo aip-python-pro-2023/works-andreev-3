@@ -1,12 +1,21 @@
-import json
+import os
+from dotenv import load_dotenv
+import telebot
 
-with open('data.json') as file:
-    data = json.load(file)
+load_dotenv()
 
-print(data['name'])
-print(data['contacts']['email'])
+TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN']
+bot = telebot.TeleBot(TELEGRAM_TOKEN, parse_mode=None)
 
-data['is_admin'] = True
 
-with open('result.json', 'w') as file:
-    json.dump(data, file, indent=2)
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+    bot.reply_to(message, "Howdy, how are you doing?")
+
+
+@bot.message_handler(func=lambda m: True)
+def echo_all(message):
+    bot.reply_to(message, message.text)
+
+
+bot.infinity_polling()
