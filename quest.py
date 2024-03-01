@@ -2,7 +2,12 @@ import json
 
 
 class Quest:
-    count = 0
+    count: int = 0
+    __id: int
+    __name: str
+    __description: str
+    __difficulty: int
+    __steps: list
 
     def __init__(self, quest_id, name, description, difficulty, steps):
         Quest.count += 1
@@ -45,7 +50,7 @@ class Quest:
     def __eq__(self, other):
         return isinstance(other, Quest) and self.__id == other.__id
 
-    def next_step(self, current_step, state):
+    def next_step(self, current_step: int, state: int) -> str:
         if state == 0:
             return 'DIED :('
         if state == 1:

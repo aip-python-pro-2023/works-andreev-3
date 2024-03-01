@@ -9,12 +9,12 @@ bot = telebot.TeleBot(TELEGRAM_TOKEN, parse_mode=None)
 
 
 @bot.message_handler(commands=['start', 'help'])
-def send_welcome(message):
+def send_welcome(message: telebot.types.Message):
     bot.reply_to(message, "Howdy, how are you doing?")
 
 
 @bot.message_handler(func=lambda m: True)
-def echo_all(message):
+def echo_all(message: telebot.types.Message):
     bot.reply_to(message, message.text)
 
 
