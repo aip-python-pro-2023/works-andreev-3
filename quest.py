@@ -17,6 +17,13 @@ class Quest:
         self.__difficulty = difficulty
         self.__steps = steps
 
+    def __repr__(self):
+        return f'Quest(id="{self.__id}", name="{self.__name}")'
+
+    @property
+    def quest_id(self):
+        return self.__id
+
     def get_name(self):
         return self.__name
 
@@ -73,47 +80,32 @@ class Quest:
         )
 
 
-iikebana = Quest(
-    'Moi',
-    'Мастер Иике-баны',
-    'Длинное интересное описание',
-    70,
-    []
-)
+class QuestRepository:
+    quests: list[Quest] = None
 
-diehard = Quest(
-    'Diehard',
-    'Страшная смерть',
-    'Длинное и очень интересное описание',
-    10,
-    []
-)
+    def __init__(self):
+        self.quests = [
+            Quest(
+                'Moi',
+                'Мастер Иике-баны',
+                'Длинное интересное описание',
+                70,
+                []
+            ),
+            Quest(
+                'Diehard',
+                'Страшная смерть',
+                'Длинное и очень интересное описание',
+                10,
+                []
+            )
+        ]
 
-print(iikebana)
-print(diehard)
-print(iikebana == diehard)
+    def add(self, new_quest: Quest):
+        self.quests.append(new_quest)
 
-user = User('Nick')
-print(iikebana == user)
+    def get_all(self):
+        return self.quests.copy()
 
-# user.passed_quests.append(iikebana.__id)
-# if iikebana in user:
-#     print('Passed!')
-
-print(Quest.count)
-# diehard.count = diehard.count + 1
-
-# result = iikebana.next_step([], randint(0, 1))
-# print(result)
-
-gobsaur = Quest.create_from_json('quests/gobsaur.json')
-print(gobsaur)
-print(gobsaur.get_description())
-
-gobsaur.description += '\n\nДополнительное описание'
-print(gobsaur.description)
-# gobsaur.set_description(gobsaur.get_description() + '\n\nДополнительное описание')
-# print(gobsaur.get_description())
-
-for item in gobsaur, user:
-    print(item.get_name())
+    def get_by_id(self, quest_id):
+        return [quest for quest in self.quests if quest.quest_id == quest_id][0]
